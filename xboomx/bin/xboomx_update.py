@@ -1,15 +1,15 @@
 #!/usr/bin/python
 import sys
 import fileinput
-
 import xboomx.db
 
 
 def main():
     # get db type
     db_type = ''
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 1 and sys.argv[1] != "--stats":
         db_type = sys.argv[1]
+
     # open db
     db = xboomx.db.open_shelve(db_type)
 
