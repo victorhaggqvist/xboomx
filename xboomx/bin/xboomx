@@ -1,0 +1,37 @@
+#!/usr/bin/python
+import fileinput
+
+import subprocess
+from xboomx.config import config
+import xboomx.db
+import sys
+
+
+if len(sys.argv) > 1 and sys.argv[1] == "--stats":
+    db = xboomx.db.open_shelve('')
+
+    items = []
+
+    keys = db.keys()
+
+    for x in keys:
+        items.append([x, db.get(x, "")])
+
+    db.close()
+
+    # sort items
+    items.sort(key=lambda x: x[1], reverse=True)
+
+    # print items
+    print "Application\tLaunches"
+    for item in items:
+        if len(item[0]) < 8:
+            print item[0]+"\t\t"+str(item[1])
+        else:
+            print item[0]+"\t"+str(item[1])
+
+    exit(0)
+
+DMENU_LAUNCHER = 'dmenu ' + config.get("dmenu_params", "")
+
+subprocess.call("xboomx_path.py | xboomx_sort.py | " + DMENU_LAUNCHER +  "| xboomx_update.py | xargs -I {} sh -c \'exec {} &\'", shell=True)

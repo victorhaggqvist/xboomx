@@ -1,0 +1,3 @@
+{
+        "dmenu_params": "-i -nb black -nf orange -sb black -p \"#\""
+}
