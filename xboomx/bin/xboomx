@@ -1,6 +1,4 @@
 #!/usr/bin/python
-import fileinput
-
 import subprocess
 from xboomx.config import config
 import xboomx.db

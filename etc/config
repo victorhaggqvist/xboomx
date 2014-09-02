@@ -1,3 +1,4 @@
 {
-        "dmenu_params": "-i -nb black -nf orange -sb black -p \"#\""
+  "dmenu_params": "-b -i -nb black -nf orange -sb black -p \"#\"",
+  "ignorelist": ["X"]
 }
