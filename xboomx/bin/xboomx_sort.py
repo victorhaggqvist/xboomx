@@ -20,7 +20,14 @@ def main():
 
     for input_item in fileinput.input([]):
         input_item = input_item.strip('\n')
-        items.append((db.get(input_item, 0), input_item))
+        score = db.get(input_item, 0)
+        items.append((score, input_item))
+    
+    for key in db.keys():
+        # check if any item (from previous queries) is not yet in items
+        if not [item[1] for item in items if item[1] == key]:
+            items.append((db[key], key))
+
 
     # sort items
     items.sort(key=lambda x: x[0], reverse=True)
