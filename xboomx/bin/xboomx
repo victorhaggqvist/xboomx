@@ -1,35 +1,38 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+__author__ = 'Victor Häggqvist, Yuriy Netesov'
+__copyright__ = 'Copyright 2014-2015, Victor Häggqvist'
+__credits__ = ['Victor Häggqvist', 'Yuriy Netesov']
+__license__ = 'GPL-2.0'
+__version__ = '0.7.0'
+__maintainer__ = 'Victor Häggqvist <victor@hggqvst.com>'
+
 import subprocess
 from xboomx.config import config
-import xboomx.db
+from xboomx.sqlitemgr import get_session, PathItem
 import sys
 
+def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "--stats":
+        session = get_session()
+        items = session.query(PathItem).order_by(PathItem.count.desc())
 
-if len(sys.argv) > 1 and sys.argv[1] == "--stats":
-    db = xboomx.db.open_shelve('')
+        print('Application\tLaunches')
+        for item in items:
+            if item.count < 3:
+                continue
 
-    items = []
+            if len(item.name) < 8:
+                print('%s\t\t%s' % (item.name, item.count))
+            else:
+                print('%s\t%s' % (item.name, item.count))
 
-    keys = db.keys()
+        exit(0)
 
-    for x in keys:
-        items.append([x, db.get(x, "")])
+    dmenu_launcher = 'dmenu ' + config.get("dmenu_params", "")
 
-    db.close()
+    subprocess.call('xboomx_path.py | xboomx_sort.py | ' + dmenu_launcher + "| xboomx_update.py | xargs -I {} sh -c \'exec {} &\'", shell=True)
 
-    # sort items
-    items.sort(key=lambda x: x[1], reverse=True)
-
-    # print items
-    print "Application\tLaunches"
-    for item in items:
-        if len(item[0]) < 8:
-            print item[0]+"\t\t"+str(item[1])
-        else:
-            print item[0]+"\t"+str(item[1])
-
-    exit(0)
-
-DMENU_LAUNCHER = 'dmenu ' + config.get("dmenu_params", "")
-
-subprocess.call("xboomx_path.py | xboomx_sort.py | " + DMENU_LAUNCHER +  "| xboomx_update.py | xargs -I {} sh -c \'exec {} &\'", shell=True)
+if __name__ == '__main__':
+    main()

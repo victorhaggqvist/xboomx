@@ -1,36 +1,37 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 import fileinput
-import sys
 
-import xboomx.db
+from xboomx.sqlitemgr import get_session, PathItem
 
 
 def main():
+    session = get_session()
+    dbitems = session.query(PathItem).all()
 
-    # get db type
-    db_type = ''
-    if len(sys.argv) > 1:
-        db_type = sys.argv[1]
-
-    # open shelve
-    db = xboomx.db.open_shelve(db_type)
+    items = {}
+    for i in dbitems:
+        items[i.name] = i.count
 
     # read lines and set weight according to db
     items = []
-
     for input_item in fileinput.input([]):
         input_item = input_item.strip('\n')
-        items.append((db.get(input_item, 0), input_item))
+
+        try:
+            count = items[input_item]
+            items.append((count, input_item))
+        except KeyError:
+            items.append((0, input_item))
 
     # sort items
     items.sort(key=lambda x: x[0], reverse=True)
 
-    # print items
+    # print items to be shown on dmenu
     for item in items:
-        print item[1]
+        print(item[1])
 
-    # clean up
-    db.close()
+    session.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

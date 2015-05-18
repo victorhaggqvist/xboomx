@@ -1,7 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+from pprint import pprint
 import sys
 import fileinput
-import xboomx.db
+from sqlalchemy.orm.exc import NoResultFound
+from xboomx.sqlitemgr import get_session, PathItem
 
 
 def main():
@@ -10,22 +12,24 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] != "--stats":
         db_type = sys.argv[1]
 
-    # open db
-    db = xboomx.db.open_shelve(db_type)
+    item = fileinput.input()[0]
+    pprint(item)
 
-    # get item to update
-    item = fileinput.input([]).next()
     item = item.strip('\n')
 
-    # update item
-    db[item] = db.get(item, 0) + 1
+    session = get_session()
+    try:
+        dbitem = session.query(PathItem).filter_by(name=item).one()
+        dbitem.count = dbitem.count + 1
+        session.add(dbitem)
+    except NoResultFound:
+        dbi = PathItem(name=item, couunt=0)
+        session.add(dbi)
 
-    # print it
-    print item
+    session.commit()
+    session.close()
 
-    # clean up
-    db.sync()
-    db.close()
+    print(item)
 
-
-main()
+if __name__ == '__main__':
+    main()

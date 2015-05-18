@@ -1,23 +1,27 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+# coding=utf-8
 
 import os
 from xboomx.config import config
 
+__author__ = 'Victor Häggqvist'
+
 def main():
-    pathes = os.environ['PATH'].split(':')
+    paths = os.environ['PATH'].split(':')
 
     items = []
 
-    for path in pathes:
+    for path in paths:
         if os.path.isdir(path):
             for f in os.listdir(path):
                 items.append(f)
 
-    uniqeitems = list(set(items))
+    unique_items = list(set(items))
 
-    ignorelist = config.get("ignorelist","");
-    for item in uniqeitems:
-        if item not in ignorelist:
-            print item
+    ignore_list = config.get("ignorelist", "")
+    for item in unique_items:
+        if item not in ignore_list:
+            print(item)
 
-main()
+if __name__ == '__main__':
+    main()
