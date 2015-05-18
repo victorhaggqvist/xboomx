@@ -12,6 +12,11 @@ mkdir ~/.xboomx
 cp etc/config ~/.xboomx/config
 ```
 
+### Migration to xboomx 0.7.x, python 3
+xboomx 0.7.x contain breaking changes from previous versions.
+
+To perform the migration make sure you still have python 2 installed, then run `xboomx_python2mirgation.py` which performs the migration. When this is done you are good to start using xboomx 0.7.x.
+
 ## Config
 The config file, which if you followed the instructions above is located at `~/.xboomx/config`, contains the following a json object.
 ```json
