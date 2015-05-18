@@ -12,6 +12,8 @@ mkdir ~/.xboomx
 cp etc/config ~/.xboomx/config
 ```
 
+Available via AUR as `xboomx-snilius`.
+
 ### Migration to xboomx 0.7.x, python 3
 xboomx 0.7.x contain breaking changes from previous versions.
 
