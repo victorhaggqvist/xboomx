@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='xboomx',
-    version='0.7.0',
+    version='0.7.2',
     packages=['xboomx'],
     scripts=['xboomx/bin/xboomx_path.py',
              'xboomx/bin/xboomx_sort.py',

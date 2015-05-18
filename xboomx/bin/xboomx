@@ -5,7 +5,6 @@ __author__ = 'Victor Häggqvist, Yuriy Netesov'
 __copyright__ = 'Copyright 2014-2015, Victor Häggqvist'
 __credits__ = ['Victor Häggqvist', 'Yuriy Netesov']
 __license__ = 'GPL-2.0'
-__version__ = '0.7.0'
 __maintainer__ = 'Victor Häggqvist <victor@hggqvst.com>'
 
 import subprocess
