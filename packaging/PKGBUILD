@@ -1,6 +1,6 @@
 # Maintainer: Victor Häggqvist <victor@snilius.com>
 
-pkgname=xboomx
+pkgname=xboomx-snilius
 pkgver=0.7.3
 pkgrel=2
 pkgdesc="A wrapper for most common occurrences in dmenu"
@@ -9,6 +9,8 @@ license=('GPL-2.0')
 arch=('any')
 depends=('python' 'python-sqlalchemy' 'dmenu')
 makedepends=('python-setuptools')
+provides=('xboomx')
+conflicts=('xboomx')
 
 source=(https://github.com/victorhaggqvist/xboomx/archive/v${pkgver}.zip)
 sha512sums=('115c62f66cc9bdb2a6d48e8e60b15f90093957f265f2200fb569de835a999eb46252c74e1b30cb858bf8cc4a69b659a3e93e44edcc54f122bd26f887b93c09b4')
