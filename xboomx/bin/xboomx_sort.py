@@ -8,9 +8,9 @@ def main():
     session = get_session()
     dbitems = session.query(PathItem).all()
 
-    items = {}
+    memitems = {}
     for i in dbitems:
-        items[i.name] = i.count
+        memitems[i.name] = i.count
 
     # read lines and set weight according to db
     items = []
@@ -18,7 +18,8 @@ def main():
         input_item = input_item.strip('\n')
 
         try:
-            count = items[input_item]
+
+            count = memitems[input_item]
             items.append((count, input_item))
         except KeyError:
             items.append((0, input_item))
