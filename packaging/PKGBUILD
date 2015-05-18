@@ -1,0 +1,26 @@
+# Maintainer: Victor Häggqvist <victor@snilius.com>
+
+pkgname=xboomx
+pkgver=0.7.3
+pkgrel=1
+pkgdesc="A wrapper for most common occurrences in dmenu"
+url="https://github.com/victorhaggqvist/xboomx"
+license=('GPL-2.0')
+arch=('any')
+depends=('python' 'python-sqlalchemy')
+makedepends=('python-setuptools')
+
+source=(https://github.com/victorhaggqvist/xboomx/archive/v${pkgver}.zip)
+sha512sums=('115c62f66cc9bdb2a6d48e8e60b15f90093957f265f2200fb569de835a999eb46252c74e1b30cb858bf8cc4a69b659a3e93e44edcc54f122bd26f887b93c09b4')
+
+build() {
+  cd "$srcdir/xboomx-${pkgver}"
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/xboomx-${pkgver}"
+  python setup.py install --root="$pkgdir" --optimize=1
+}
+
+# vim: ts=2 sts=2 sw=2 et ft=sh
