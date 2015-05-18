@@ -2,12 +2,12 @@
 
 pkgname=xboomx
 pkgver=0.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A wrapper for most common occurrences in dmenu"
 url="https://github.com/victorhaggqvist/xboomx"
 license=('GPL-2.0')
 arch=('any')
-depends=('python' 'python-sqlalchemy')
+depends=('python' 'python-sqlalchemy' 'dmenu')
 makedepends=('python-setuptools')
 
 source=(https://github.com/victorhaggqvist/xboomx/archive/v${pkgver}.zip)
