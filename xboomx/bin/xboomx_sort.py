@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import fileinput
-
 from xboomx.sqlitemgr import get_session, PathItem
-
+from xboomx.config import config
 
 def main():
     session = get_session()
@@ -26,6 +25,14 @@ def main():
 
     # sort items
     items.sort(key=lambda x: x[0], reverse=True)
+
+    # complete commands
+    complete_offpath = config.get('complete_offpath', False)
+    if complete_offpath:
+        for key in memitems:
+            # check if any item (from previous queries) is not yet in items
+            if not [item[1] for item in items if item[1] == key]:
+                items.append((memitems[key], key))
 
     # print items to be shown on dmenu
     for item in items:

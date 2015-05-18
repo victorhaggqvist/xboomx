@@ -24,7 +24,8 @@ The config file, which if you followed the instructions above is located at `~/.
 ```json
 {
   "dmenu_params": "-b -i -nb black -nf orange -sb black -p \"#\"",
-  "ignorelist": ["X"]
+  "ignorelist": ["X"],
+  "complete_offpath": false
 }
 ```
 
@@ -34,6 +35,8 @@ man dmenu
 ```
 
 The `ignorelist` to prevent stuff that is in your path for showing up as suggestions. Like if you type `x` then `X` might show up before `xbmc`.
+
+`complete_offpath` will add everything that's in you ranking database regardless of availability on PATH. This is off by default. 
 
 ## License
 
