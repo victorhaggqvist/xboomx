@@ -24,7 +24,7 @@ def main():
             dbitem.count = dbitem.count + 1
             session.add(dbitem)
         except NoResultFound:
-            dbi = PathItem(name=item, couunt=0)
+            dbi = PathItem(name=item, count=0)
             session.add(dbi)
 
         session.commit()
