@@ -13,10 +13,8 @@ def main():
         db_type = sys.argv[1]
 
     try:
-        item = fileinput.input()[0]
+        item = next(fileinput.input())
         pprint(item)
-
-        item = item.strip('\n')
 
         session = get_session()
         try:
